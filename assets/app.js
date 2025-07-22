@@ -84,3 +84,18 @@ function renderAnimes(list, containerId = 'animeGrid') {
 function getAnimeById(id) {
     return animes.find(a => a.id === parseInt(id));
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
+  const animeCards = document.querySelectorAll(".anime-card");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      animeCards.forEach(card => {
+        const title = card.querySelector(".title").textContent.toLowerCase();
+        card.style.display = title.includes(query) ? "block" : "none";
+      });
+    });
+  }
+});
