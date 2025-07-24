@@ -125,33 +125,48 @@ a {
     }
 
 
+/* Conteneur de la barre de recherche */
 .search-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem auto;
-  width: 100%;
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin: 20px auto;
 }
 
-.search-container input[type="text"] {
-  width: 60%;
-  max-width: 600px;
-  padding: 14px 20px;
-  font-size: 16px;
-  border: 1px solid #4b5563;
-  border-radius: 30px;
-  background-color: #111827; /* fond sombre */
-  color: #fff;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+/* Style de la barre de recherche */
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(to right, #f1f1f1, #ffffff);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #333;
+    transition: box-shadow 0.3s ease;
 }
 
-.search-container input[type="text"]::placeholder {
-  color: #9ca3af;
+.search-input::placeholder {
+    color: #888;
+    font-style: italic;
 }
 
-.search-container input[type="text"]:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
-  background-color: #1f2937;
+.search-input:focus {
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Icône de recherche */
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+.search-input:focus + .search-icon {
+    color: #007BFF;
 }
