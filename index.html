@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,12 +8,18 @@
   <meta name="theme-color" content="#1f1f1f">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css">
-  <title>Anime Stream</title>
+  <title>Anime Stream - Accueil</title>
 </head>
 
 <body>
   <header>
     <h1>🎌 Anime Stream</h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="favoris.html">Favoris</a>
+      <a href="genres.html">Genres</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
   <main>
@@ -32,8 +39,6 @@
         <img src="https://upload.wikimedia.org/wikipedia/en/6/65/One_Piece_1.jpg" alt="One Piece">
         <h2>One Piece</h2>
       </div>
-
-      <!-- Add more cards as needed -->
     </section>
   </main>
 
@@ -42,13 +47,11 @@
   </footer>
 
   <script>
-    // Redirection vers la page de lecture
     function openAnime(animeId) {
       window.location.href = `anime.html?id=${animeId}`;
     }
   </script>
 
-  <!-- PWA -->
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
@@ -60,189 +63,4 @@
 
 </html>
 
-<!-- anime.html -->
-<!-- Page de lecture -->
-<!-- Place ce fichier dans anime.html -->
 
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lecture Anime</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-  <header>
-    <h1 id="anime-title">Lecture</h1>
-  </header>
-
-  <main>
-    <div class="video-container">
-      <video id="anime-player" controls autoplay>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture vidéo.
-      </video>
-    </div>
-  </main>
-
-  <footer>
-    <button onclick="addToFavorites()">💖 Ajouter aux favoris</button>
-  </footer>
-
-  <script>
-    // Lecture de l'ID dans l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const animeId = urlParams.get('id');
-
-    const animeData = {
-      naruto: {
-        title: "Naruto",
-        src: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      aot: {
-        title: "Attack on Titan",
-        src: "https://www.w3schools.com/html/mov_bbb.mp4"
-      },
-      onepiece: {
-        title: "One Piece",
-        src: "https://www.w3schools.com/html/mov_bbb.mp4"
-      }
-    };
-
-    const player = document.getElementById("anime-player");
-    const title = document.getElementById("anime-title");
-
-    if (animeData[animeId]) {
-      title.textContent = animeData[animeId].title;
-      player.src = animeData[animeId].src;
-    }
-
-    function addToFavorites() {
-      let favs = JSON.parse(localStorage.getItem("favs")) || [];
-      if (!favs.includes(animeId)) {
-        favs.push(animeId);
-        localStorage.setItem("favs", JSON.stringify(favs));
-        alert("Ajouté aux favoris !");
-      } else {
-        alert("Déjà ajouté !");
-      }
-    }
-  </script>
-</body>
-
-</html>
-
-<!-- sw.js -->
-// Place ce fichier à la racine du site
-
-const CACHE_NAME = 'anime-cache-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/anime.html',
-  '/css/style.css'
-];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
-
-<!-- manifest.json -->
-{
-  "name": "Anime Stream",
-  "short_name": "AnimeStream",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#1f1f1f",
-  "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ]
-}
-
-<!-- css/style.css -->
-body {
-  margin: 0;
-  background-color: #121212;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
-header, footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #1f1f1f;
-}
-
-.anime-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.anime-card {
-  background-color: #2b2b2b;
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.anime-card:hover {
-  transform: scale(1.05);
-}
-
-.anime-card img {
-  width: 100%;
-  height: auto;
-}
-
-.anime-card h2 {
-  padding: 0.5rem;
-  text-align: center;
-  font-size: 1rem;
-}
-
-.video-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 1rem;
-}
-
-video {
-  width: 100%;
-  border-radius: 10px;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  background-color: #ff0055;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #e6004d;
-}
